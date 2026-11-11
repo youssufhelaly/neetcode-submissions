@@ -1,0 +1,21 @@
+class Solution:
+    def reorganizeString(self, s: str) -> str:
+        count = Counter(s)
+        res = ''
+        counter = 0
+        m = ''
+        l = ''
+
+        while counter != len(s):
+            m = max(count, key=count.get)
+            if count[m] <= 0:
+                break
+            res += m
+            count[m] -= 1
+            if l:
+                count[l] = -count[l]
+            count[m] = -count[m]
+
+            counter += 1 
+            l = m
+        return res if len(res) == len(s) else ''
